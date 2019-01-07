@@ -48,3 +48,15 @@ p->Printf(); --> 替换为Printf(Hello* this)=Prinf(p)
 而静态成员函数没有 this 指针，只能访问静态成员（包括静态成员变量和静态成员函数）
 
 5 this指针
+http://c.biancheng.net/cpp/biancheng/view/201.html
+成员函数最终被编译成与对象无关的普通函数，除了成员变量，会丢失所有信息，
+所以编译时要在成员函数中添加一个额外的参数，把当前对象的首地址传入，以此来关联成员函数和成员变量。
+这个额外的参数，实际上就是 this，它是成员函数和成员变量关联的桥梁
+
+6  C++函数编译原理和成员函数的实现
+https://blog.csdn.net/chengonghao/article/details/51034164
+对象的大小只受成员变量的影响，和成员函数没有关系。成员函数在代码区分配内存，而不是在栈区
+
+7  __thiscall
+__stdcall，__cdecl，__pascal，__fastcall的区别
+http://c.biancheng.net/cpp/html/2847.html
