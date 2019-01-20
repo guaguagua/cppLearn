@@ -1,0 +1,47 @@
+#include "stdafx.h"
+
+class  A
+{
+public:
+    void log()//生成一个log(A* this)函数
+    {
+        printf("aaaa\n");
+    }
+    int a;
+};
+
+class B:public A
+{
+public:
+    void log()//生成一个log(B* this)函数
+    {
+        printf("bbbb\n");
+    }
+    int b;
+};
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+    A a = A();
+    a.log();//aaaa 转换为log(&a)
+    B b = B();
+    b.log();//bbbb 转换为log(&b)
+
+    B* pb = new B();
+    A* pa = pb;
+
+    /*
+        非虚函数相当于是编译器自动生成了一个普通的c函数，
+        只是在第一个位置增加了一个this参数指针，指针的类型是该类类型
+        所以不同的类定义相同的函数，只是函数的重载，因为第一个参数的类型不一样
+        非虚函数的调用就是普通的c函数调用，子类重写父类函数，就是简单的函数重载
+    */
+    pa->log();//aaaa,pa是A类对象,所以编译器会把该函数调用转换为log(pa) 定义为log(A* this)
+    pb->log();//bbbb,pa是B类对象,所以编译器会把该函数调用转换为log(pb) 定义为log(B* this)
+
+
+    printf("%p,%p",pa,pb);
+
+    getchar();
+	return 0;
+}
